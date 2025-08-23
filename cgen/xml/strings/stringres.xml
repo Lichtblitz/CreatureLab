@@ -25,5 +25,6 @@
 	<string name="cgen_label_log4">4</string>
 	<string name="cgen_label_log5">5</string>
 	<string name="cgen_label_logmsg">0</string>
-
+	<string name="cgen_label_logtext">Log Output</string>
+	<string name="cgen_label_inputtext">Paste your text here:</string>
 </root>

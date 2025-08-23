@@ -18,7 +18,6 @@
 	<!-- templates -->
 	<template name="cgen_button_genesis">
 		<button_text_sm>
-			<anchored position="insidetop"/>
 			<state textres="cgen_button_genesis" />
 
 			<gmvisibleonly />
@@ -117,64 +116,107 @@
 		</genericcontrol>
 	</template>
 
-
 	<!-- windows -->
 
 	<windowclass name="cgen_header">
 		<margins control="0,0,0,7" />
 		<sheetdata>
-			<cgen_button_genesis />
-			<anchor_record_header_right />
+			<cgen_button_genesis name="genesis_button">
+				<anchored position="insidetop">
+					<top offset="25" />
+					<left offset="15" />
+					<right offset="-20" />
+				</anchored>
+			</cgen_button_genesis>
 		</sheetdata>
 	</windowclass>
 
+	<windowclass name="cgen_input_contents">
+		<margins control="0,0,0,2" />
+		<sheetdata>
+			<label name='input_label'>
+				<anchored>
+					<top />
+					<left />
+					<right />
+				</anchored>
+				<static textres='cgen_label_inputtext' />
+			</label>
+			<formattedtextfield name="input">
+				<anchored>
+					<top offset="30" />
+					<left />
+					<bottom />
+					<right offset="-10" />
+				</anchored>
+			</formattedtextfield>
+			<scrollbar_content>
+				<anchored to="input" />
+				<target>input</target>
+			</scrollbar_content>
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="cgen_log_contents">
+		<margins control="0,0,0,2" />
+		<sheetdata>
+			<label name='log_label'>
+				<anchored>
+					<top />
+					<left />
+					<right />
+				</anchored>
+				<static textres='cgen_label_logtext' />
+			</label>
+			<formattedtextfield name="log">
+				<anchored>
+					<top offset="30" />
+					<left />
+					<bottom />
+					<right offset="-10" />
+				</anchored>
+			</formattedtextfield>
+			<scrollbar_content name="scrollbar_log">
+				<anchored to="log" />
+				<target>log</target>
+			</scrollbar_content>
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="cgen_content">
+		<margins control="10,10,10,12" />
+		<sheetdata>
+			<anchor_content_top />
+			<anchor_content_bottom />
+			<sub_content_framed_groupbox_left name="input_content">
+				<class>cgen_input_contents</class>
+			</sub_content_framed_groupbox_left>
+			<sub_content_framed_groupbox_right name="log_content">
+				<class>cgen_log_contents</class>
+			</sub_content_framed_groupbox_right>
+		</sheetdata>
+	</windowclass>
 
 	<windowclass name="cgen_window">
 		<frame>recordsheet</frame>
 		<script file="cgen/lua/CreatureGenWindow.lua" />
 		<sizelimits>
-			<minimum width="500" height="600" />
+			<minimum width="1000" height="600" />
 		</sizelimits>
 		<sheetdata>
-			<sub_record_header name="header">
+			<anchor_content_top />
+			<anchor_content_bottom />
+			<sub_content_top name="headers">
 				<class>cgen_header</class>
-			</sub_record_header>
-			<frame_record_content_tabbed name="contentframe">
+			</sub_content_top>
+			<sub_content name="content">
 				<anchored>
-					<bottom offset="-65" />
+					<bottom offset="-45" />
 				</anchored>
-			</frame_record_content_tabbed>
-			<ft_record name="input">
-				<anchored to="contentframe" position="over" />
-				<invisible />
-			</ft_record>
-			<ft_record name="log">
-				<anchored to="contentframe" position="over" />
-				<invisible />
-			</ft_record>
-			<tabs_recordsheet>
-				<tab>
-					<icon>cgen_tab_input</icon>
-					<subwindow>input</subwindow>
-				</tab>
-				<tab>
-					<icon>cgen_tab_log</icon>
-					<subwindow>log</subwindow>
-				</tab>
-			</tabs_recordsheet>
-
-			<scrollbar_record>
-				<target>input</target>
-			</scrollbar_record>
-			<scrollbar_record>
-				<target>log</target>
-			</scrollbar_record>
-
+				<class>cgen_content</class>
+			</sub_content>
 			<frame_record_logbar name="controlframe" />
 			<radio_record_cgen_log_level name="loglevel" />
-
-			<resize_campaignlistwithtabs/>
-			<close_campaignlist/>
 		</sheetdata>
 	</windowclass>
 </root>
